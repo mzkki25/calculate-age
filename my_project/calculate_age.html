@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
+</head>
+<body>
+    <div class="calculator-form">
+        <h2>Input Your Birthday</h2><br>
+        <div class="inputs">
+            <!-- create date  -->
+            <div class="block">
+                <label for="date">Date</label>
+                <input type="number" max="31" min="0" id="date" class="input" placeholder="dd">
+            </div>
+            <!-- create month -->
+            <div class="block">
+                <label for="month">Month</label>
+                <input type="number" max="12" min="0" id="month" class="input" placeholder="mm">
+            </div>
+            <!-- create year -->
+            <div class="block">
+                <label for="year">Year</label>
+                <input type="number" id="year" min="0" class="input" placeholder="yyyy">
+            </div>
+        </div>
+        <div class="btn">
+            <button type="submit" class="btn1" onclick="calculateAge()">Submit</button><br>
+            <button type="reset" class="btn2" onclick="resetAnswer()">Reset</button>
+        </div>
+        <p id="displayAge"></p>
+    </div>
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background-color: #111823;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .calculator-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 2px solid deepskyblue;
+            padding: 48px;
+            border-radius: 20px;
+        }
+        .calculator-form h2 {
+            margin-bottom: 24px;
+            margin-top: 0;
+            font-size: 30px;
+        }
+        .inputs {
+            display: flex;
+        }
+        .block {
+            display: flex;
+            flex-direction: column;
+            margin: 8 8px;
+        }
+        label {
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+        .input {
+            border: 2px solid deepskyblue;
+            height: 2rem;
+            width: 8rem;
+            border-radius: 7px;
+            padding: 8px;
+            margin-top: 4px;
+            font-size: 18px;
+        }
+        .btn {
+            display: flex;
+            flex-direction: column;
+            margin-top: 0px;
+            position: relative;
+            margin-right: 360px;
+        }
+        .btn .btn1 {
+            border: 2px solid deepskyblue;
+            height: 2.5rem;
+            width: 5rem;
+            border-radius: 20px;
+            padding: 8px;
+            margin-top: 19px;
+            font-size: 12px;
+            background-color: deepskyblue;
+            color: white;
+            cursor: pointer;
+            position: absolute;
+            transition: all 0.3s ease;
+            margin-left: 90px;
+        }
+        .btn .btn1:hover {
+            background-color: white;
+            color: deepskyblue;
+        }
+        .btn .btn2 {
+            border: 2px solid deepskyblue;
+            height: 2.5rem;
+            width: 5rem;
+            border-radius: 20px;
+            padding: 8px;
+            margin-top: 19px;
+            font-size: 12px;
+            background-color: deepskyblue;
+            color: white;
+            cursor: pointer;
+            position: absolute;
+            transition: all 0.3s ease;
+            margin-left: 190px;
+        }
+        .btn .btn2:hover {
+            background-color: white;
+            color: deepskyblue;
+        }
+        #displayAge {
+            margin-top: 60px;
+            font-size: 20px;
+        }
+    </style>
+    <script>
+        const calculateAge = () => {
+            let d1 = document.getElementById('date').value;
+            let m1 = document.getElementById('month').value;
+            let y1 = document.getElementById('year').value;
+
+            let date = new Date();
+            let d2 = date.getDate();
+            let m2 = date.getMonth() + 1;
+            let y2 = date.getFullYear();
+            let month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+            if (d1 > d2) {
+                d2 = d2 + month[m2 - 1];
+                m2 = m2 - 1;
+            }
+            if (m1 > m2) {
+                m2 = m2 + 12;
+                y2 = y2 - 1;
+            }
+            let d = d2 - d1;
+            let m = m2 - m1;
+            let y = y2 - y1;
+             
+            if (d1 == '' || m1 == '' || y1 == '') {
+                document.getElementById('displayAge').innerText = 'Please fill all the fields';
+            } else {
+                if (m > 0 && m <= 12 && y > 0 && d > 0 && d <= 31) {
+                    document.getElementById('displayAge').innerText = `Your age is ${y} years ${m} months ${d} days`;
+                } else {
+                    document.getElementById('displayAge').innerText = `enter valid input`;
+                }
+            }
+        }
+
+        const resetAnswer = () => {
+            let d1 = document.getElementById('date').value = '';
+            let m1 = document.getElementById('month').value = '';
+            let y1 = document.getElementById('year').value = '';
+            document.getElementById('displayAge').innerText = '';
+        }
+    </script>
+</body>
+</html>
